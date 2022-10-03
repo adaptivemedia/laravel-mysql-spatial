@@ -13,6 +13,8 @@ class CreateLocationTable extends Migration
      */
     public function up()
     {
+        $this->down();
+
         Schema::create('geometry', function (Blueprint $table) {
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
@@ -55,8 +57,8 @@ class CreateLocationTable extends Migration
      */
     public function down()
     {
-        Schema::drop('geometry');
-        Schema::drop('no_spatial_fields');
-        Schema::drop('with_srid');
+        Schema::dropIfExists('geometry');
+        Schema::dropIfExists('no_spatial_fields');
+        Schema::dropIfExists('with_srid');
     }
 }
