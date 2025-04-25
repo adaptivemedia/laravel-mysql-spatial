@@ -65,4 +65,17 @@ class SpatialServiceProvider extends DatabaseServiceProvider
             }
         }
     }
+    
+    /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        // Use our custom Schema Blueprint
+        $this->app->bind('Illuminate\Database\Schema\Blueprint', function ($app) {
+            return new \Grimzy\LaravelMysqlSpatial\Schema\Blueprint('');
+        });
+    }
 }
