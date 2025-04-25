@@ -10,8 +10,7 @@ use Grimzy\LaravelMysqlSpatial\Types\Polygon;
 class SpatialTest extends IntegrationBaseTestCase
 {
     protected $migrations = [
-        CreateLocationTable::class,
-        UpdateLocationTable::class,
+        \CreateLocationTable::class,
     ];
 
     public function testSpatialFieldsNotDefinedException()

@@ -10,8 +10,7 @@ use Grimzy\LaravelMysqlSpatial\Types\Polygon;
 class SridSpatialTest extends IntegrationBaseTestCase
 {
     protected $migrations = [
-        CreateLocationTable::class,
-        UpdateLocationTable::class,
+        \CreateLocationTable::class,
     ];
 
     public function testInsertPointWithSrid()

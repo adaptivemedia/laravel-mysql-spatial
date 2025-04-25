@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\DB;
 class MigrationTest extends IntegrationBaseTestCase
 {
     protected $migrations = [
-        CreateLocationTable::class,
-        UpdateLocationTable::class,
+        \CreateLocationTable::class,
     ];
 
     public function testTableWasCreatedWithRightTypes()

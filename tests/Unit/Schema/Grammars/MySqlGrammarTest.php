@@ -4,7 +4,7 @@ use Grimzy\LaravelMysqlSpatial\MysqlConnection;
 use Grimzy\LaravelMysqlSpatial\Schema\Blueprint;
 use Grimzy\LaravelMysqlSpatial\Schema\Grammars\MySqlGrammar;
 
-class MySqlGrammarBaseTest extends BaseTestCase
+class MySqlGrammarTest extends BaseTestCase
 {
     public function testAddingGeometry()
     {
@@ -89,7 +89,7 @@ class MySqlGrammarBaseTest extends BaseTestCase
     public function testAddingGeometryWithSrid()
     {
         $blueprint = new Blueprint('test');
-        $blueprint->geometry('foo', 4326);
+        $blueprint->geometry('foo', null, 4326);  // Changed to match Laravel 11 signature
         $statements = $blueprint->toSql($this->getConnection(), $this->getGrammar());
 
         $this->assertEquals(1, count($statements));
@@ -181,9 +181,9 @@ class MySqlGrammarBaseTest extends BaseTestCase
         $dropStatements = $blueprint->toSql($this->getConnection(), $this->getGrammar());
 
         $expectedSql = 'alter table `test` drop index `test_foo_spatial`';
-        $this->assertEquals(5, count($dropStatements));
+        $this->assertEquals(4, count($dropStatements));
+        $this->assertEquals($expectedSql, $dropStatements[2]);
         $this->assertEquals($expectedSql, $dropStatements[3]);
-        $this->assertEquals($expectedSql, $dropStatements[4]);
     }
 
     /**

@@ -33,7 +33,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometry', 'col', ['subtype' => null, 'srid' => 0])
+            ->with('geometry', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -52,7 +52,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('point', 'col', ['srid' => null])
+            ->with('point', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -71,7 +71,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('linestring', 'col', ['srid' => null])
+            ->with('linestring', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -90,7 +90,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('polygon', 'col', ['srid' => null])
+            ->with('polygon', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -109,7 +109,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('multipoint', 'col', ['srid' => null])
+            ->with('multipoint', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -128,7 +128,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('multilinestring', 'col', ['srid' => null])
+            ->with('multilinestring', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -147,7 +147,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('multipolygon', 'col', ['srid' => null])
+            ->with('multipolygon', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -166,7 +166,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometrycollection', 'col', ['srid' => null])
+            ->with('geometrycollection', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -186,7 +186,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometry', 'col', ['subtype' => null, 'srid' => 4326])
+            ->with('geometry', 'col', ['srid' => 4326])
             ->once()
             ->andReturn($expectedCol);
 
