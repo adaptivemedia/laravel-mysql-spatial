@@ -11,14 +11,6 @@
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
-    <coverage>
-        <include>
-            <directory suffix=".php">./src</directory>
-        </include>
-        <report>
-            <clover outputFile="build/logs/clover.xml"/>
-        </report>
-    </coverage>
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="APP_DEBUG" value="true"/>
