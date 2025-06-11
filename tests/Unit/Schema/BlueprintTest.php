@@ -14,7 +14,7 @@ class BlueprintTest extends BaseTestCase
      */
     protected $blueprint;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -27,12 +27,13 @@ class BlueprintTest extends BaseTestCase
         $expectedCol = new ColumnDefinition([
             'type' => 'geometry',
             'name' => 'col',
-            'srid' => null,
+            'subtype' => null,
+            'srid' => 0,
         ]);
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometry', 'col', ['srid' => null])
+            ->with('geometry', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -51,7 +52,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('point', 'col', ['srid' => null])
+            ->with('point', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -70,7 +71,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('linestring', 'col', ['srid' => null])
+            ->with('linestring', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -89,7 +90,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('polygon', 'col', ['srid' => null])
+            ->with('polygon', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -108,7 +109,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('multipoint', 'col', ['srid' => null])
+            ->with('multipoint', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -127,7 +128,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('multilinestring', 'col', ['srid' => null])
+            ->with('multilinestring', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -146,7 +147,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('multipolygon', 'col', ['srid' => null])
+            ->with('multipolygon', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -165,7 +166,7 @@ class BlueprintTest extends BaseTestCase
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometrycollection', 'col', ['srid' => null])
+            ->with('geometrycollection', 'col', [])
             ->once()
             ->andReturn($expectedCol);
 
@@ -179,6 +180,7 @@ class BlueprintTest extends BaseTestCase
         $expectedCol = new ColumnDefinition([
             'type' => 'geometry',
             'name' => 'col',
+            'subtype' => null,
             'srid' => 4326,
         ]);
 
@@ -188,7 +190,7 @@ class BlueprintTest extends BaseTestCase
             ->once()
             ->andReturn($expectedCol);
 
-        $result = $this->blueprint->geometry('col', 4326);
+        $result = $this->blueprint->geometry('col', null, 4326);
 
         $this->assertSame($expectedCol, $result);
     }

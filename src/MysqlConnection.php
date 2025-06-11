@@ -6,7 +6,6 @@ use Doctrine\DBAL\Types\Type as DoctrineType;
 use Grimzy\LaravelMysqlSpatial\Schema\Builder;
 use Grimzy\LaravelMysqlSpatial\Schema\Grammars\MySqlGrammar;
 use Illuminate\Database\MySqlConnection as IlluminateMySqlConnection;
-use Illuminate\Support\Facades\ParallelTesting;
 
 class MysqlConnection extends IlluminateMySqlConnection
 {
@@ -14,7 +13,8 @@ class MysqlConnection extends IlluminateMySqlConnection
     {
         parent::__construct($pdo, $database, $tablePrefix, $config);
 
-        if (class_exists(DoctrineType::class) && ! ParallelTesting::token()) {
+        // For unit tests, we might not have Doctrine DBAL available
+        if (class_exists(DoctrineType::class)) {
             $this->registerDoctrineTypeMappings();
         }
     }
@@ -33,9 +33,13 @@ class MysqlConnection extends IlluminateMySqlConnection
             'geometrycollection',
             'geomcollection',
         ];
-        $dbPlatform = $this->getDoctrineSchemaManager()->getDatabasePlatform();
-        foreach ($geometries as $type) {
-            $dbPlatform->registerDoctrineTypeMapping($type, 'string');
+        
+        // Check if getDoctrineSchemaManager() exists to handle Laravel 11 compatibility
+        if (method_exists($this, 'getDoctrineSchemaManager')) {
+            $dbPlatform = $this->getDoctrineSchemaManager()->getDatabasePlatform();
+            foreach ($geometries as $type) {
+                $dbPlatform->registerDoctrineTypeMapping($type, 'string');
+            }
         }
     }
 

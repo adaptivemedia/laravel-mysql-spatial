@@ -65,4 +65,23 @@ class SpatialServiceProvider extends DatabaseServiceProvider
             }
         }
     }
+    
+    /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        // Register the MySqlGrammar with support for spatial types
+        $this->app->bind('db.schema.grammar.mysql', function() {
+            return new \Grimzy\LaravelMysqlSpatial\Schema\Grammars\MySqlGrammar();
+        });
+        
+        // Use our custom Schema Blueprint
+        $this->app->bind('Illuminate\Database\Schema\Blueprint', function ($app, $parameters = []) {
+            $table = isset($parameters[0]) ? $parameters[0] : null;
+            return new \Grimzy\LaravelMysqlSpatial\Schema\Blueprint($table);
+        });
+    }
 }

@@ -118,7 +118,7 @@ class GeometryCollection extends Geometry implements IteratorAggregate, ArrayAcc
         unset($this->items[$offset]);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->items);
     }

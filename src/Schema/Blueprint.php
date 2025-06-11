@@ -9,14 +9,22 @@ class Blueprint extends IlluminateBlueprint
     /**
      * Add a geometry column on the table.
      *
-     * @param string   $column
-     * @param null|int $srid
+     * @param string      $column
+     * @param string|null $subtype
+     * @param int         $srid
      *
      * @return \Illuminate\Support\Fluent
      */
-    public function geometry($column, $srid = null)
+    public function geometry($column, $subtype = null, $srid = 0)
     {
-        return $this->addColumn('geometry', $column, compact('srid'));
+        $attributes = [];
+        if ($subtype !== null) {
+            $attributes['subtype'] = $subtype;
+        }
+        if ($srid !== 0) {
+            $attributes['srid'] = $srid;
+        }
+        return $this->addColumn('geometry', $column, $attributes);
     }
 
     /**
@@ -29,7 +37,11 @@ class Blueprint extends IlluminateBlueprint
      */
     public function point($column, $srid = null)
     {
-        return $this->addColumn('point', $column, compact('srid'));
+        $attributes = [];
+        if ($srid !== null) {
+            $attributes['srid'] = $srid;
+        }
+        return $this->addColumn('point', $column, $attributes);
     }
 
     /**
@@ -42,7 +54,11 @@ class Blueprint extends IlluminateBlueprint
      */
     public function lineString($column, $srid = null)
     {
-        return $this->addColumn('linestring', $column, compact('srid'));
+        $attributes = [];
+        if ($srid !== null) {
+            $attributes['srid'] = $srid;
+        }
+        return $this->addColumn('linestring', $column, $attributes);
     }
 
     /**
@@ -55,7 +71,11 @@ class Blueprint extends IlluminateBlueprint
      */
     public function polygon($column, $srid = null)
     {
-        return $this->addColumn('polygon', $column, compact('srid'));
+        $attributes = [];
+        if ($srid !== null) {
+            $attributes['srid'] = $srid;
+        }
+        return $this->addColumn('polygon', $column, $attributes);
     }
 
     /**
@@ -68,7 +88,11 @@ class Blueprint extends IlluminateBlueprint
      */
     public function multiPoint($column, $srid = null)
     {
-        return $this->addColumn('multipoint', $column, compact('srid'));
+        $attributes = [];
+        if ($srid !== null) {
+            $attributes['srid'] = $srid;
+        }
+        return $this->addColumn('multipoint', $column, $attributes);
     }
 
     /**
@@ -81,7 +105,11 @@ class Blueprint extends IlluminateBlueprint
      */
     public function multiLineString($column, $srid = null)
     {
-        return $this->addColumn('multilinestring', $column, compact('srid'));
+        $attributes = [];
+        if ($srid !== null) {
+            $attributes['srid'] = $srid;
+        }
+        return $this->addColumn('multilinestring', $column, $attributes);
     }
 
     /**
@@ -94,7 +122,11 @@ class Blueprint extends IlluminateBlueprint
      */
     public function multiPolygon($column, $srid = null)
     {
-        return $this->addColumn('multipolygon', $column, compact('srid'));
+        $attributes = [];
+        if ($srid !== null) {
+            $attributes['srid'] = $srid;
+        }
+        return $this->addColumn('multipolygon', $column, $attributes);
     }
 
     /**
@@ -107,7 +139,11 @@ class Blueprint extends IlluminateBlueprint
      */
     public function geometryCollection($column, $srid = null)
     {
-        return $this->addColumn('geometrycollection', $column, compact('srid'));
+        $attributes = [];
+        if ($srid !== null) {
+            $attributes['srid'] = $srid;
+        }
+        return $this->addColumn('geometrycollection', $column, $attributes);
     }
 
     /**
