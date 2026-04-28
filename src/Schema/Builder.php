@@ -15,8 +15,8 @@ class Builder extends MySqlBuilder
      *
      * @return Blueprint
      */
-    protected function createBlueprint($table, Closure $callback = null)
+    protected function createBlueprint($table, ?Closure $callback = null)
     {
-        return new Blueprint($table, $callback);
+        return new Blueprint($this->connection, $table, $callback);
     }
 }

@@ -305,7 +305,7 @@ class SpatialTraitTest extends BaseTestCase
         $this->assertEquals('*', $q->columns[0]);
         $this->assertInstanceOf(\Illuminate\Database\Query\Expression::class, $q->columns[1]);
         // Create a grammar instance to pass to getValue()
-        $grammar = new \Illuminate\Database\Query\Grammars\MySqlGrammar();
+        $grammar = new \Illuminate\Database\Query\Grammars\MySqlGrammar($this->model->getConnection());
         $this->assertEquals('st_distance(`point`, ST_GeomFromText(?, ?, \'axis-order=long-lat\')) as distance', $q->columns[1]->getValue($grammar));
         $this->assertEquals('POINT(2 1)', $bindings[0]);
     }
@@ -323,7 +323,7 @@ class SpatialTraitTest extends BaseTestCase
         $this->assertEquals('some_column', $q->columns[0]);
         $this->assertInstanceOf(\Illuminate\Database\Query\Expression::class, $q->columns[1]);
         // Create a grammar instance to pass to getValue()
-        $grammar = new \Illuminate\Database\Query\Grammars\MySqlGrammar();
+        $grammar = new \Illuminate\Database\Query\Grammars\MySqlGrammar($this->model->getConnection());
         $this->assertEquals('st_distance(`point`, ST_GeomFromText(?, ?, \'axis-order=long-lat\')) as distance', $q->columns[1]->getValue($grammar));
         $this->assertEquals('POINT(2 1)', $bindings[0]);
     }
@@ -341,7 +341,7 @@ class SpatialTraitTest extends BaseTestCase
         $this->assertEquals('*', $q->columns[0]);
         $this->assertInstanceOf(\Illuminate\Database\Query\Expression::class, $q->columns[1]);
         // Create a grammar instance to pass to getValue()
-        $grammar = new \Illuminate\Database\Query\Grammars\MySqlGrammar();
+        $grammar = new \Illuminate\Database\Query\Grammars\MySqlGrammar($this->model->getConnection());
         $this->assertEquals('st_distance_sphere(`point`, ST_GeomFromText(?, ?, \'axis-order=long-lat\')) as distance', $q->columns[1]->getValue($grammar));
         $this->assertEquals('POINT(2 1)', $bindings[0]);
     }
@@ -359,7 +359,7 @@ class SpatialTraitTest extends BaseTestCase
         $this->assertEquals('some_column', $q->columns[0]);
         $this->assertInstanceOf(\Illuminate\Database\Query\Expression::class, $q->columns[1]);
         // Create a grammar instance to pass to getValue()
-        $grammar = new \Illuminate\Database\Query\Grammars\MySqlGrammar();
+        $grammar = new \Illuminate\Database\Query\Grammars\MySqlGrammar($this->model->getConnection());
         $this->assertEquals('st_distance_sphere(`point`, ST_GeomFromText(?, ?, \'axis-order=long-lat\')) as distance', $q->columns[1]->getValue($grammar));
         $this->assertEquals('POINT(2 1)', $bindings[0]);
     }
@@ -555,15 +555,14 @@ class TestModel extends Model
 
         // Instead of mocking, let's create a real connection but with a custom QueryGrammar and SchemaGrammar
         $mockConnection = new MysqlConnection(static::$pdo);
-        
+
         // To avoid the real DB connection stuff, we'll initialize the grammars directly
-        $queryGrammar = new \Illuminate\Database\Query\Grammars\MySqlGrammar();
-        $queryGrammar->setConnection($mockConnection);
+        $queryGrammar = new \Illuminate\Database\Query\Grammars\MySqlGrammar($mockConnection);
         $mockConnection->setQueryGrammar($queryGrammar);
-        
-        $schemaGrammar = new \Grimzy\LaravelMysqlSpatial\Schema\Grammars\MySqlGrammar();
+
+        $schemaGrammar = new \Grimzy\LaravelMysqlSpatial\Schema\Grammars\MySqlGrammar($mockConnection);
         $mockConnection->setSchemaGrammar($schemaGrammar);
-        
+
         return $mockConnection;
     }
 
